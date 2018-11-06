@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/smoothtacoman/bamazon/issues"
   },
-  "homepage": "https://github.com/smoothtacoman/bamazon#readme"
+  "homepage": "https://github.com/smoothtacoman/bamazon#readme",
+  "dependencies": {
+    "mysql": "^2.16.0",
+    "requirer": "0.0.4"
+  }
 }
