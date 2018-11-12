@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/smoothtacoman/bamazon#readme",
   "dependencies": {
+    "inquirer": "^6.2.0",
     "mysql": "^2.16.0",
     "requirer": "0.0.4"
   }
