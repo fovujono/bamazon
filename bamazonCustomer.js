@@ -49,11 +49,11 @@ function iPrompt() {
       //Ask them ID of the product they would like to buy
       {
         type: "input",
-        name: "Product Id",
+        name: "ProductId",
         message: "Using the ID's of the Products in the Bamazon Store choose what product you'd like to purchase.",
         //making sure the number used is valid using the validate method 
         validate: function (answers) {
-          if (answers> 0 && answers <= 10) {
+          if (answers > 0 && answers <= 10) {
             return true;
           }
           return "Invalid ID number please try again.";
@@ -64,16 +64,60 @@ function iPrompt() {
         type: "input",
         name: "Units",
         message: "How many units of the product would you like to buy?",
-        //making sure the number used is valid using the validate method 
+        //making sure the number inputed is valid using the validate method 
         validate: function (answers) {
-          if (answers > 0 && answers<= item_id.length) {
+          if (answers > 0) {
             return true;
           }
           return "Invalid quantity please try again.";
+          
         }
       }
     ])
- };
+    .then(function (answers) {
+      var item = answers.ProductId;
+      var quantity = answers.Units;
+
+      connection.query("SELECT * FROM products WHERE item_id =" + item, function (err, res) {
+        //check if stock quanitiy has enough
+        if (quantity > res[0].stock_quantity) {
+          console.log("Sorry we do not have enough product to fulfill that order");
+          restart();
+        //show customers order
+        } else {
+          console.log("\n YOUR ORDER: \n")
+          console.log("\n YOU HAVE PURCHASED " + quantity + " UNITS OF PRODUCT ID: " + item  + "\n\n")
+          console.log("\n TOTAL COST:" + quantity * res[0].price + "\n\n");
+          //updating database after purchase and showing total
+          connection.query("UPDATE products SET ? WHERE ?",[{stock_quantity:res[0].stock_quantity - quantity},{item_id: item}]
+          )
+          console.log("============================================================")
+          restart();
+        }
+      })
+     
+    })
+ 
+};
 
 
-//updating database after purchase
+//make function so users can continue to shop if there is an error or if they just bought something
+function restart(){
+  inquirer.prompt([
+    {
+    type:"confirm",
+    name:"restart",
+    message:"Continue shopping?",
+    }
+  ])
+  .then(function (answers){
+    if (answers.restart){
+      showProducts();
+
+    }
+    else{
+      connection.end
+    }
+  })
+};
+
