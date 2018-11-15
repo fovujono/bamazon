@@ -34,19 +34,46 @@ function showProducts() {
       console.log("PRODUCTS AVALIABLE IN BAMAZON STORE:" + "\n\n");
 
       for (var i = 0; i < res.length; i++) {
-        console.log("Id: " + res[i].item_id + " | " + " Product Name: " + res[i].product_name + " | " + " Price: " + res[i].price + " | " + "Quantity in stock: " + res[i].stock_quantity + "\n=============================================================================\n");
-      }      
+        console.log("Id: " + res[i].item_id + " | " + " Product Name: " + res[i].product_name + " | " + " Price: $ " + res[i].price + " | " + "Quantity in stock: " + res[i].stock_quantity + "\n=============================================================================\n");
+      }
       iPrompt();
     })
+
 };
 
-function iPrompt(){
-  inquirer.prompt([
-    {
-      type: "input",
-      name: "Product Id",
-      message:"Using the ID's of the Products in the Bamazon Store chose what product you'd like to purchase."
-    }
+//Display questions using inquirer
 
-  ])
-}
+
+function iPrompt() {
+  inquirer.prompt([
+      //Ask them ID of the product they would like to buy
+      {
+        type: "input",
+        name: "Product Id",
+        message: "Using the ID's of the Products in the Bamazon Store choose what product you'd like to purchase.",
+        //making sure the number used is valid using the validate method 
+        validate: function (answers) {
+          if (answers> 0 && answers <= 10) {
+            return true;
+          }
+          return "Invalid ID number please try again.";
+        },
+      },
+      //Ask them how many units of the product they would like to buy
+      {
+        type: "input",
+        name: "Units",
+        message: "How many units of the product would you like to buy?",
+        //making sure the number used is valid using the validate method 
+        validate: function (answers) {
+          if (answers > 0 && answers<= item_id.length) {
+            return true;
+          }
+          return "Invalid quantity please try again.";
+        }
+      }
+    ])
+ };
+
+
+//updating database after purchase
