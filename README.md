@@ -15,24 +15,23 @@ Once you have your database up and your packages installed you can start using B
 
 Open your terminal (make sure you are opening from the correct destination) and run the javacript file:
 
+The app will then prompt the user with a table that is filled with items that are for sale in the Bamazon store. 
 
-The app will then prompt the user the first question:
+Then Bamazon will ask the user two questions:
 
-
-
-
-If the ID you enter is not a valid ID you will get this in return:
-
+The first should ask them the ID of the product they would like to buy:
+    Bamazon will also let the user know if the ID  entered is not a valid ID.
 
 
-After this the app will prompt the user the second question:
-
-
-If the store does not currently have the ammount of product asked for in its inventory, it will disply the following:
+The second message should ask how many units of the product they would like to buy.
+    If the store does not currently have the ammount of product asked for in its inventory, it will disply the following:
 
 
 
-The store also updates it inventory when an order is fullfilled:
+The store also updates its inventory when an order is fullfilled.
+
+
+All of the above can be found in this live demo here: https://drive.google.com/open?id=17CTvx6CfyzcIEnH5hE9ROZMjR2yQMR7q
 
 
 

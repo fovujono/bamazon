@@ -116,6 +116,7 @@ function restart(){
 
     }
     else{
+      console.log("Please come back soon! :-)")
       connection.end
     }
   })
